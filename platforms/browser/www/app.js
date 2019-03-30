@@ -42,6 +42,7 @@ function loadHomeContent() {
     'ui-btn-active'
   );
   window.scrollTo(0, 0);
+  $('#top-title').html('Han Chiang App');
 }
 
 function loadTimetableContent() {
@@ -52,6 +53,7 @@ function loadTimetableContent() {
   );
   getTimetable();
   window.scrollTo(0, 0);
+  $('#top-title').html('Timetables');
 }
 
 function loadCalendarContent() {
@@ -62,6 +64,7 @@ function loadCalendarContent() {
   );
   getCalendars();
   window.scrollTo(0, 0);
+  $('#top-title').html('Calendars');
 }
 
 function handleOptions() {
@@ -84,7 +87,7 @@ function getNews() {
       });
       $('.ui-content').html(newsContent);
     });
-  console.log('getNews called');
+  $('#top-title').html('Latest News');
 }
 
 //--- Hanchiang Calendar ---
