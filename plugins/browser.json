@@ -1,0 +1,28 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "pg.md.panel"
+        },
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "pg.adv.panel"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "pg.adv.panel"
+        },
+        "cordova-plugin-admobpro": {
+            "PACKAGE_NAME": "pg.adv.panel"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-extension": {
+            "PACKAGE_NAME": "pg.adv.panel"
+        }
+    }
+}

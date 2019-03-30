@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width"
+    />
+    <title>PG Admob Advanced Panel</title>
+    <link rel="stylesheet" href="jquery/jquery.mobile-1.4.5.min.css" />
+  </head>
+  <body>
+    <div id="mypanel"><!--panel.html loaded by app.js--></div>
+
+    <!-- /panel -->
+    <!-- Start of first page -->
+    <div data-role="page" id="home">
+      <div data-role="header" data-position="fixed">
+        <h1>PG Admob Adv Panel</h1>
+        <a
+          href="#mypanel"
+          class="ui-btn ui-alt-icon ui-btn-icon-notext ui-icon-bars ui-nodisc-icon ui-btn-inline"
+          id="openpanel"
+        ></a>
+
+        <a
+          href="options.html"
+          data-icon="bars"
+          class="ui-btn ui-shadow ui-corner-all ui-icon-gear ui-btn-icon-notext"
+          data-transition="slidedown"
+        ></a>
+      </div>
+      <!-- /header -->
+
+      <div role="main" class="ui-content" id="homecontent">
+        <!--home.html loaded by app.js-->
+      </div>
+      <!-- /content -->
+
+      <div data-role="footer" data-position="fixed">
+        <div data-role="navbar">
+          <ul>
+            <li>
+              <a
+                href="#"
+                data-icon="home"
+                onclick="loadHomeContent()"
+                id="navbar-home"
+                class="ui-btn-active"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="loadAboutContent()"
+                data-icon="info"
+                id="navbar-about"
+                >About</a
+              >
+            </li>
+            <li>
+              <a
+                href="#"
+                onclick="loadTestContent()"
+                data-icon="check"
+                id="navbar-test"
+                >Test</a
+              >
+            </li>
+          </ul>
+        </div>
+        <!-- /navbar -->
+      </div>
+      <!-- /footer -->
+    </div>
+    <!-- /page -->
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="jquery/jquery.js"></script>
+    <script
+      type="text/javascript"
+      src="jquery/jquery.mobile-1.4.5.min.js"
+    ></script>
+    <script type="text/javascript" src="ads.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </body>
+</html>
