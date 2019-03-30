@@ -112,17 +112,6 @@ function getCalendars() {
         calendarContent += '</p>';
         calendarContent += '</div>';
       });
-      for (let i = 0; i < 20; i++) {
-        calendarContent +=
-          '<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
-        calendarContent += '<h4>';
-        calendarContent += 'Testing Content: ' + i;
-        calendarContent += '</h4>';
-        calendarContent += '<p>';
-        calendarContent += 'Haha hii hoki dokie';
-        calendarContent += '</p>';
-        calendarContent += '</div>';
-      }
       calendarContent += '</div>';
 
       $('.ui-content').html(calendarContent);
