@@ -1,5 +1,5 @@
-# JQuery Panels Example
+# Han Chiang App
 
-### An advanced panel example
+### Current working project as at 2019 March 30
 
 Uses ajax to load ui-contents, side-panels
