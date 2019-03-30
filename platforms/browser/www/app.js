@@ -23,29 +23,41 @@ function initApp() {
     .fail(function() {
       console.log('ajax home content error');
     });
-
-  //--- Admob in ads.js ----
-  initAds();
 }
 
-function loadAboutContent() {
-  $('.ui-content').load('about.html');
-  $('#navbar-about').addClass('ui-btn-active');
-  $('#navbar-home, #navbar-test').removeClass('ui-btn-active');
+function loadNewsContent() {
+  $('.ui-content').load('news.html');
+  $('#navbar-news').addClass('ui-btn-active');
+  $('#navbar-home, #navbar-timetable, #navbar-calendar').removeClass(
+    'ui-btn-active'
+  );
   window.scrollTo(0, 0);
 }
 
 function loadHomeContent() {
   $('.ui-content').load('home.html');
   $('#navbar-home').addClass('ui-btn-active');
-  $('#navbar-about, #navbar-test').removeClass('ui-btn-active');
+  $('#navbar-news, #navbar-timetable, #navbar-calendar').removeClass(
+    'ui-btn-active'
+  );
   window.scrollTo(0, 0);
 }
 
-function loadTestContent() {
-  $('.ui-content').load('test.html');
-  $('#navbar-test').addClass('ui-btn-active');
-  $('#navbar-home, #navbar-about').removeClass('ui-btn-active');
+function loadTimetableContent() {
+  $('.ui-content').load('timetable.html');
+  $('#navbar-timetable').addClass('ui-btn-active');
+  $('#navbar-home, #navbar-news , #navbar-calendar').removeClass(
+    'ui-btn-active'
+  );
+  window.scrollTo(0, 0);
+}
+
+function loadCalendarContent() {
+  $('.ui-content').load('calendar.html');
+  $('#navbar-calendar').addClass('ui-btn-active');
+  $('#navbar-home, #navbar-news , #navbar-timetable').removeClass(
+    'ui-btn-active'
+  );
   window.scrollTo(0, 0);
 }
 

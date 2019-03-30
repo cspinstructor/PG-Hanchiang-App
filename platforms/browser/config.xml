@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="pg.adv.panel" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>PG Admob Advanced Panel</name>
+<widget id="my.edu.hjuapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Han Chiang App</name>
     <description>
-        A test of Admob on JQuery Phone Gap with ajax panels
+        App for Hanchiang for accessing news, calendar, timetable and exam results.
     </description>
-    <author email="ezipicapp@gmail.com" href="https://ezipicapp.blogspot.com">
+    <author email="paulchin@hju.edu.my" href="http://hju.edu.my">
         Paul
     </author>
     <content src="index.html" />
@@ -18,6 +18,4 @@
     <icon src="icon144.png" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="orientation" value="portrait" />
-    <preference name="android-build-tool" value="gradle" />
-    <preference name="phonegap-version" value="cli-8.0.0" />
 </widget>
