@@ -115,7 +115,7 @@ function getCalendars() {
       calendarContent += '</div>';
 
       $('.ui-content').html(calendarContent);
-
+      console.log(calendarContent);
       $('[data-role=collapsible]').collapsible();
       $('[data-role=collapsibleset]').collapsibleset();
     });
