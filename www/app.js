@@ -145,11 +145,11 @@ function getTimetable() {
 
 //--- pinchzoom ---
 function initPinchZoom() {
-  let myElement = document.getElementsByTagName('IMG');
-  let pz = [];
+  var myElement = document.getElementsByTagName('IMG');
+  var pz = [];
   //console.log('myElement count ...: ' + myElement.length);
 
-  for (let i = 0; i < myElement.length; i++) {
+  for (var i = 0; i < myElement.length; i++) {
     //console.log(myElement[i]);
     pz.push(new PinchZoom(myElement[i]));
     //pz.push(myElement[i]);
