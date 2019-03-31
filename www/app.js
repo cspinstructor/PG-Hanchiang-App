@@ -121,7 +121,7 @@ function getCalendars() {
       //console.log(calendarContent);
       $('[data-role=collapsible]').collapsible();
       $('[data-role=collapsibleset]').collapsibleset();
-      initPinchZoom();
+      makeEmDraggable();
     });
 }
 
@@ -168,7 +168,21 @@ function zoomIn() {
   // });
 
   $('#zoom-in').on('click', function() {
-    imagesize = imagesize + 5;
+    imagesize = imagesize + 20;
     $('img').width(imagesize);
   });
+}
+
+function makeEmDraggable() {
+  var draggableElems = document.querySelectorAll('img');
+  // array of Draggabillies
+  var draggies = [];
+  // init Draggabillies
+  for (var i = 0; i < draggableElems.length; i++) {
+    var draggableElem = draggableElems[i];
+    var draggie = new Draggabilly(draggableElem, {
+      // options...
+    });
+    draggies.push(draggie);
+  }
 }
