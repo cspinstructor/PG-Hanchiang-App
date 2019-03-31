@@ -144,21 +144,31 @@ function getTimetable() {
 }
 
 //--- pinchzoom ---
-function initPinchZoom() {
-  var myElement = document.getElementsByTagName('IMG');
-  var pz = [];
-  //console.log('myElement count ...: ' + myElement.length);
+// function initPinchZoom() {
+//   var myElement = document.getElementsByTagName('IMG');
+//   var pz = [];
 
-  for (var i = 0; i < myElement.length; i++) {
-    //console.log(myElement[i]);
-    pz.push(new PinchZoom(myElement[i]));
-    //pz.push(myElement[i]);
-    console.log(pz[i]);
-  }
+//   for (var i = 0; i < myElement.length; i++) {
 
-  // Object.keys(myElement).forEach(function(el, index) {
-  //   console.log(index);
+//     pz.push(new PinchZoom(myElement[i]));
+
+//     console.log(pz[i]);
+//   }
+
+//   console.log('num el: ' + pz.length);
+// }
+
+//---- zoomIn image ------
+function zoomIn() {
+  var imagesize = $('img').width();
+
+  // $('.zoomout').on('click', function(){
+  //     imagesize = imagesize - 5;
+  //     $('img').width(imagesize);
   // });
 
-  console.log('num el: ' + pz.length);
+  $('#zoom-in').on('click', function() {
+    imagesize = imagesize + 5;
+    $('img').width(imagesize);
+  });
 }
