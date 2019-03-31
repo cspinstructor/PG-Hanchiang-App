@@ -115,6 +115,7 @@ function getCalendars() {
         calendarContent += '</p>';
         calendarContent += '</div>';
       });
+
       calendarContent += '</div>';
 
       $('.ui-content').html(calendarContent);
