@@ -118,11 +118,11 @@ function getCalendars() {
       calendarContent += '</div>';
 
       $('.ui-content').html(calendarContent);
-      console.log(calendarContent);
+      //console.log(calendarContent);
       $('[data-role=collapsible]').collapsible();
       $('[data-role=collapsibleset]').collapsibleset();
+      initPinchZoom();
     });
-  console.log('getCalendars called');
 }
 
 //--- Hanchiang Home Page ---
@@ -141,4 +141,24 @@ function getTimetable() {
       $('.ui-content').html(content);
     });
   console.log('getTimetable called');
+}
+
+//--- pinchzoom ---
+function initPinchZoom() {
+  let myElement = document.getElementsByTagName('IMG');
+  let pz = [];
+  //console.log('myElement count ...: ' + myElement.length);
+
+  for (let i = 0; i < myElement.length; i++) {
+    //console.log(myElement[i]);
+    pz.push(new PinchZoom(myElement[i]));
+    //pz.push(myElement[i]);
+    console.log(pz[i]);
+  }
+
+  // Object.keys(myElement).forEach(function(el, index) {
+  //   console.log(index);
+  // });
+
+  console.log('num el: ' + pz.length);
 }
