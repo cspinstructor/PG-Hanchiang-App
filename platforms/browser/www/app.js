@@ -27,34 +27,40 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-  $('#navbar-home').removeClass('ui-btn-active');
+
   getNews();
   window.scrollTo(0, 0);
+  $('[data-role="footer"]').css({ display: 'none' });
+  $('a').removeClass('ui-btn-active');
 }
 
 function loadHomeContent() {
   $('.ui-content').load('home.html');
-  $('#navbar-home').addClass('ui-btn-active');
 
   window.scrollTo(0, 0);
   $('#top-title').html('Han Chiang App');
+  $('[data-role="footer"]').css({ display: 'none' });
+  $('a').removeClass('ui-btn-active');
 }
 
 function loadTimetableContent() {
   //$('.ui-content').load('timetable.html');
-  $('#navbar-home').removeClass('ui-btn-active');
+
   getTimetable();
   window.scrollTo(0, 0);
   $('#top-title').html('Timetables');
+  $('[data-role="footer"]').css({ display: 'block' });
+  $('a').removeClass('ui-btn-active');
 }
 
 function loadCalendarContent() {
   //$('.ui-content').load('calendar.html');
-  $('#navbar-home').removeClass('ui-btn-active');
+  // $('#navbar-home').removeClass('ui-btn-active');
   getCalendars();
   window.scrollTo(0, 0);
   $('#top-title').html('Calendars');
   $('[data-role="footer"]').css({ display: 'block' });
+  $('a').removeClass('ui-btn-active');
 }
 
 function handleOptions() {
@@ -96,7 +102,7 @@ function getCalendars() {
         // console.log(post.content.rendered);
 
         calendarContent +=
-          '<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
         calendarContent += '<h4>';
         calendarContent += post.title.rendered;
         calendarContent += '</h4>';
@@ -165,7 +171,7 @@ function zoomOut() {
   });
 }
 
-function resetWidth() {
+function fitWidth() {
   //$('img').width($(document).width());
   $('img').width('100%');
   draggable.draggabilly('setPosition', 0, 0);
