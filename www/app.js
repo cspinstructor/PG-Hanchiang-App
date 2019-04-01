@@ -27,7 +27,7 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-  //showLoader();
+  showLoader();
   getNews();
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
@@ -82,7 +82,7 @@ function getNews() {
         newsContent += post.content.rendered;
       });
       $('.ui-content').html(newsContent);
-      //hideLoader();
+      hideLoader();
     });
   $('#top-title').html('Latest News');
 }
