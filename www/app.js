@@ -27,7 +27,7 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-
+  //showLoader();
   getNews();
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
@@ -45,7 +45,7 @@ function loadHomeContent() {
 
 function loadTimetableContent() {
   //$('.ui-content').load('timetable.html');
-
+  showLoader();
   getTimetable();
   window.scrollTo(0, 0);
   $('#top-title').html('Timetables');
@@ -82,12 +82,15 @@ function getNews() {
         newsContent += post.content.rendered;
       });
       $('.ui-content').html(newsContent);
+      //hideLoader();
     });
   $('#top-title').html('Latest News');
 }
 
 //--- Hanchiang Calendar ---
 function getCalendars() {
+  showLoader();
+
   var calendarContent = '';
   const apiRoot = 'https://hjuapp.site/wp-json';
 
@@ -119,7 +122,21 @@ function getCalendars() {
       $('[data-role=collapsible]').collapsible();
       $('[data-role=collapsibleset]').collapsibleset();
       makeEmDraggable();
+      hideLoader();
     });
+}
+
+function showLoader() {
+  $.mobile.loading('show', {
+    text: 'loading',
+    textVisible: true,
+    theme: 'z',
+    html: ''
+  });
+}
+
+function hideLoader() {
+  $.mobile.loading('hide');
 }
 
 //--- Hanchiang Home Page ---
@@ -136,6 +153,7 @@ function getTimetable() {
       content = posts[0].content.rendered;
 
       $('.ui-content').html(content);
+      hideLoader();
     });
 }
 
