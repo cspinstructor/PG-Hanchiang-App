@@ -122,7 +122,8 @@ function getCalendars() {
       //console.log(calendarContent);
       $('[data-role=collapsible]').collapsible();
       $('[data-role=collapsibleset]').collapsibleset();
-      makeEmDraggable();
+      //makeEmDraggable();
+      initPinchZoom();
     });
 }
 
