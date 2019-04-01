@@ -27,10 +27,7 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-  $('#navbar-news').addClass('ui-btn-active');
-  $('#navbar-home, #navbar-timetable, #navbar-calendar').removeClass(
-    'ui-btn-active'
-  );
+  $('#navbar-home').removeClass('ui-btn-active');
   getNews();
   window.scrollTo(0, 0);
 }
@@ -38,19 +35,14 @@ function loadNewsContent() {
 function loadHomeContent() {
   $('.ui-content').load('home.html');
   $('#navbar-home').addClass('ui-btn-active');
-  $('#navbar-news, #navbar-timetable, #navbar-calendar').removeClass(
-    'ui-btn-active'
-  );
+
   window.scrollTo(0, 0);
   $('#top-title').html('Han Chiang App');
 }
 
 function loadTimetableContent() {
   //$('.ui-content').load('timetable.html');
-  $('#navbar-timetable').addClass('ui-btn-active');
-  $('#navbar-home, #navbar-news , #navbar-calendar').removeClass(
-    'ui-btn-active'
-  );
+  $('#navbar-home').removeClass('ui-btn-active');
   getTimetable();
   window.scrollTo(0, 0);
   $('#top-title').html('Timetables');
@@ -58,13 +50,11 @@ function loadTimetableContent() {
 
 function loadCalendarContent() {
   //$('.ui-content').load('calendar.html');
-  $('#navbar-calendar').addClass('ui-btn-active');
-  $('#navbar-home, #navbar-news , #navbar-timetable').removeClass(
-    'ui-btn-active'
-  );
+  $('#navbar-home').removeClass('ui-btn-active');
   getCalendars();
   window.scrollTo(0, 0);
   $('#top-title').html('Calendars');
+  $('[data-role="footer"]').css({ display: 'block' });
 }
 
 function handleOptions() {
@@ -141,7 +131,6 @@ function getTimetable() {
 
       $('.ui-content').html(content);
     });
-  console.log('getTimetable called');
 }
 
 //--- pinchzoom ---
@@ -160,8 +149,8 @@ function getTimetable() {
 function zoomIn() {
   var imagesize = $('img').width();
 
-  $('#zoom-in').on('click', function() {
-    imagesize = imagesize + 20;
+  $('#navbar-zoom-in').on('click', function() {
+    imagesize = imagesize + 50;
     $('img').width(imagesize);
   });
 }
@@ -170,28 +159,21 @@ function zoomIn() {
 function zoomOut() {
   var imagesize = $('img').width();
 
-  // $('.zoomout').on('click', function(){
-  //     imagesize = imagesize - 5;
-  //     $('img').width(imagesize);
-  // });
-
-  $('#zoom-out').on('click', function() {
-    imagesize = imagesize - 20;
+  $('#navbar-zoom-out').on('click', function() {
+    imagesize = imagesize - 50;
     $('img').width(imagesize);
   });
-  console.log('zoomout called aa');
 }
 
+function resetWidth() {
+  //$('img').width($(document).width());
+  $('img').width('100%');
+  draggable.draggabilly('setPosition', 0, 0);
+}
+
+var draggable;
 function makeEmDraggable() {
-  var draggableElems = document.querySelectorAll('img');
-  // array of Draggabillies
-  var draggies = [];
-  // init Draggabillies
-  for (var i = 0; i < draggableElems.length; i++) {
-    var draggableElem = draggableElems[i];
-    var draggie = new Draggabilly(draggableElem, {
-      // options...
-    });
-    draggies.push(draggie);
-  }
+  draggable = $('img').draggabilly({
+    // options...
+  });
 }
