@@ -43,8 +43,6 @@
         <a
           data-icon="bars"
           class="ui-btn ui-shadow ui-corner-all ui-icon-search ui-btn-icon-notext"
-          onclick="zoomIn()"
-          id="zoom-in"
         ></a>
       </div>
       <!-- /header -->
@@ -70,28 +68,20 @@
             <li>
               <a
                 href="#"
-                data-icon="bars"
+                data-icon="refresh"
                 onclick="loadNewsContent()"
-                id="navbar-news"
-                >News</a
+                id="navbar-refresh"
+                >Fit Width</a
               >
             </li>
             <li>
-              <a
-                href="#"
-                onclick="loadTimetableContent()"
-                data-icon="clock"
-                id="navbar-timetable"
-                >Timetable</a
+              <a href="#" data-icon="minus" id="zoom-out" onclick="zoomOut()"
+                >Size</a
               >
             </li>
             <li>
-              <a
-                href="#"
-                onclick="loadCalendarContent()"
-                data-icon="calendar"
-                id="navbar-calendar"
-                >Calendar</a
+              <a href="#" data-icon="plus" id="zoom-in" onclick="zoomIn()"
+                >Size</a
               >
             </li>
           </ul>
@@ -110,6 +100,8 @@
     ></script>
     <script type="text/javascript" src="wpapi/wpapi.min.js"></script>
     <script type="text/javascript" src="draggabilly.pkgd.min.js"></script>
+
+    <script type="text/javascript" src="pinch-zoom.min.js"></script>
 
     <script type="text/javascript" src="app.js"></script>
   </body>

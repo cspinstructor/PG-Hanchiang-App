@@ -145,22 +145,31 @@ function getTimetable() {
 }
 
 //--- pinchzoom ---
-// function initPinchZoom() {
-//   var myElement = document.getElementsByTagName('IMG');
-//   var pz = [];
+function initPinchZoom() {
+  var myElement = document.getElementsByTagName('IMG');
+  var pz = [];
 
-//   for (var i = 0; i < myElement.length; i++) {
+  for (var i = 0; i < myElement.length; i++) {
+    pz.push(new PinchZoom(myElement[i]));
 
-//     pz.push(new PinchZoom(myElement[i]));
+    console.log(pz[i]);
+  }
 
-//     console.log(pz[i]);
-//   }
-
-//   console.log('num el: ' + pz.length);
-// }
+  console.log('num el: ' + pz.length);
+}
 
 //---- zoomIn image ------
 function zoomIn() {
+  var imagesize = $('img').width();
+
+  $('#zoom-in').on('click', function() {
+    imagesize = imagesize + 20;
+    $('img').width(imagesize);
+  });
+}
+
+//---- zoomOut image ------
+function zoomOut() {
   var imagesize = $('img').width();
 
   // $('.zoomout').on('click', function(){
@@ -168,10 +177,11 @@ function zoomIn() {
   //     $('img').width(imagesize);
   // });
 
-  $('#zoom-in').on('click', function() {
-    imagesize = imagesize + 20;
+  $('#zoom-out').on('click', function() {
+    imagesize = imagesize - 20;
     $('img').width(imagesize);
   });
+  console.log('zoomout called aa');
 }
 
 function makeEmDraggable() {
