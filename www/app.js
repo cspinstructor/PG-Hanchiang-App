@@ -75,11 +75,14 @@ function getNews() {
   const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
   var wp = new WPAPI({ endpoint: apiRoot });
   wp.posts()
-    .perPage(3)
+    .perPage(1)
     .then(function(posts) {
       posts.forEach(function(post) {
-        console.log(post.content.rendered);
-        newsContent += post.content.rendered;
+        console.log(post);
+        // console.log(post.title.rendered);
+        // newsContent += post.title.rendered;
+        // console.log(post.content.rendered);
+        // newsContent += post.content.rendered;
       });
       $('.ui-content').html(newsContent);
       hideLoader();
