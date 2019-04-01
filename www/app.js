@@ -147,13 +147,13 @@ function getTimetable() {
 
 //--- pinchzoom ---
 function initPinchZoom() {
-  var myElement = document.getElementsByTagName('IMG');
+  var myElement = document.getElementsByTagName('img');
   var pz = [];
 
   for (var i = 0; i < myElement.length; i++) {
     pz.push(new PinchZoom(myElement[i]));
-
-    console.log(pz[i]);
+    console.log(myElement[i]);
+    //console.log(pz[i]);
   }
 
   console.log('num el: ' + pz.length);
