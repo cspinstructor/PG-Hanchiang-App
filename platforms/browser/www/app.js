@@ -27,8 +27,8 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-  showLoader();
-  getNews();
+
+  getNews2();
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
   $('a').removeClass('ui-btn-active');
@@ -70,24 +70,70 @@ function handleOptions() {
 
 //--- Hanchiang News ---
 function getNews() {
+  showLoader();
   var newsContent = '';
   //const apiRoot = 'https://hjuapp.site/wp-json';
   const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
+  var imgUrl;
+
   var wp = new WPAPI({ endpoint: apiRoot });
   wp.posts()
+    .param('_embed')
     .perPage(1)
     .then(function(posts) {
       posts.forEach(function(post) {
-        console.log(post);
-        // console.log(post.title.rendered);
-        // newsContent += post.title.rendered;
-        // console.log(post.content.rendered);
-        // newsContent += post.content.rendered;
+        //imgUrl = getThumbnail(post.featured_media);
+        //console.log(post);
+        console.log('ok1');
       });
+    })
+    .then(function(posts) {
+      // posts.forEach(function(post) {
+      //   newsContent += post.title.rendered;
+      //   newsContent += post.excerpt.rendered;
+      //   newsContent += '<img src= "';
+      //   newsContent += imgUrl;
+      //   newsContent += '">';
+      // });
+      console.log('ok2');
       $('.ui-content').html(newsContent);
       hideLoader();
     });
   $('#top-title').html('Latest News');
+}
+
+function getNews2() {
+  showLoader();
+  var newsContent = '';
+  //const apiRoot = 'https://hjuapp.site/wp-json';
+  const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
+  var imgUrl;
+
+  var wp = new WPAPI({ endpoint: apiRoot });
+  wp.media()
+    .id(6417)
+    .then(function(res) {
+      console.log(res);
+      hideLoader();
+    });
+  $('#top-title').html('Latest News');
+}
+
+function getThumbnail(featured_media) {
+  const mediaUrl = `http://www.hanchiangnews.com/en/wp-json/wp/v2/media/${featured_media}`;
+  //console.log('mediaUrl: ' + mediaUrl);
+  //return 'http://www.hanchiangnews.com/en/wp-content/uploads/2019/03/Sequence-01_1-150x150.jpg';
+  $.ajax(mediaUrl)
+    .done(function(jsonresponse) {
+      console.log(
+        '1.jsonresponse.media_details.sizes.thumbnail.source_url: ' +
+          jsonresponse.media_details.sizes.thumbnail.source_url
+      );
+      return jsonresponse.media_details.sizes.thumbnail.source_url;
+    })
+    .fail(function() {
+      console.log('ajax getThumbnail error');
+    });
 }
 
 //--- Hanchiang Calendar ---
@@ -144,6 +190,7 @@ function hideLoader() {
 
 //--- Hanchiang Home Page ---
 function getTimetable() {
+  showLoader();
   var content = '';
   const apiRoot = 'https://hjuapp.site/wp-json';
 
