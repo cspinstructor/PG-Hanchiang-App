@@ -168,33 +168,6 @@ function getThumbnail2(allPosts) {
   });
 }
 
-function getThumbnail(featured_media) {
-  const mediaUrl = `http://www.hanchiangnews.com/en/wp-json/wp/v2/media/${featured_media}`;
-  //console.log('mediaUrl: ' + mediaUrl);
-  //return 'http://www.hanchiangnews.com/en/wp-content/uploads/2019/03/Sequence-01_1-150x150.jpg';
-  // $.ajax(mediaUrl)
-  //   .done(function(jsonresponse) {
-  //     // console.log(
-  //     //   '1.jsonresponse.media_details.sizes.thumbnail.source_url: ' +
-  //     //     jsonresponse.media_details.sizes.thumbnail.source_url
-  //     // );
-  //     return jsonresponse.media_details.sizes.thumbnail.source_url;
-  //   })
-  //   .fail(function() {
-  //     console.log('ajax getThumbnail error');
-  //   });
-
-  $.ajax({
-    url: mediaUrl,
-    type: 'GET',
-
-    success: function(res) {
-      //console.log('hoho call: ' + res.media_details.sizes.thumbnail.source_url);
-      return res.media_details.sizes.thumbnail.source_url;
-    }
-  });
-}
-
 //--- Hanchiang Calendar ---
 function getCalendars() {
   showLoader();
