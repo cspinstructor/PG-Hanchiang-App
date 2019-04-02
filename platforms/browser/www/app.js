@@ -26,10 +26,7 @@ function initApp() {
 }
 
 function loadNewsContent() {
-  // $('.ui-content').load('news.html');
-  //console.log(getThumbnail(6417));
-  //getThumbnail(6417);
-  getNews3();
+  getNews();
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
   $('a').removeClass('ui-btn-active');
@@ -76,58 +73,6 @@ function getNews() {
   //const apiRoot = 'https://hjuapp.site/wp-json';
   const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
   var imgUrl;
-
-  var wp = new WPAPI({ endpoint: apiRoot });
-  wp.posts()
-    .param('_embed')
-    .perPage(1)
-    .then(function(posts) {
-      // posts.forEach(function(post) {
-      //   //imgUrl = getThumbnail(post.featured_media);
-      //   //console.log(post);
-
-      //   return wp.media().id(post.featured_media);
-      // });
-      newsContent += posts[0].title.rendered;
-      newsContent += posts[0].excerpt.rendered;
-      newsContent += '<img src= "';
-      return wp.media().id(posts[0].featured_media);
-    })
-    .then(function(res) {
-      // posts.forEach(function(post) {
-
-      newsContent += res.media_details.sizes.thumbnail.source_url;
-      newsContent += '">';
-      //});
-      //console.log(res.media_details.sizes.thumbnail.source_url);
-      $('.ui-content').html(newsContent);
-      hideLoader();
-    });
-  $('#top-title').html('Latest News');
-}
-
-function getNews2() {
-  showLoader();
-  var newsContent = '';
-  const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
-  var imgUrl;
-
-  var wp = new WPAPI({ endpoint: apiRoot });
-  wp.media()
-    .id(6417)
-    .then(function(res) {
-      console.log(res.media_details.sizes.thumbnail.source_url);
-      hideLoader();
-    });
-  $('#top-title').html('Latest News');
-}
-
-function getNews3() {
-  showLoader();
-  var newsContent = '';
-  //const apiRoot = 'https://hjuapp.site/wp-json';
-  const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
-  var imgUrl;
   var allPosts = [];
 
   var wp = new WPAPI({ endpoint: apiRoot });
@@ -138,14 +83,14 @@ function getNews3() {
       posts.forEach(function(post) {
         allPosts.push(post);
       });
-      getThumbnail2(allPosts);
+      getThumbnail2Text(allPosts);
       hideLoader();
     });
 
   $('#top-title').html('Latest News');
 }
 
-function getThumbnail2(allPosts) {
+function getThumbnail2Text(allPosts) {
   var newsContent = '';
   allPosts.forEach(function(post) {
     $.ajax({
@@ -154,9 +99,6 @@ function getThumbnail2(allPosts) {
         post.featured_media,
       type: 'GET',
       success: function(res) {
-        console.log(
-          'hoho call: ' + res.media_details.sizes.thumbnail.source_url
-        );
         newsContent += post.title.rendered;
         newsContent += post.excerpt.rendered;
         newsContent += '<img src= "';
@@ -166,6 +108,32 @@ function getThumbnail2(allPosts) {
       }
     });
   });
+}
+
+function getThumbnail2Textr(allPosts) {
+  var newsContent = '<ul data-role="listview" data-inset="true">';
+
+  for (var i = 0; i < allPosts.length; i++) {
+    $.ajax({
+      url:
+        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
+        allPosts[i].featured_media,
+      type: 'GET',
+      success: function(res) {
+        newsContent += '<li><a href="#">';
+        newsContent += '<img src="';
+        newsContent += res.media_details.sizes.thumbnail.source_url;
+        newsContent += '">';
+        newsContent += '<h2>' + allPosts[i].title.rendered + '</h2>';
+        newsContent += '<p>' + allPosts[i].excerpt.rendered + '</p>';
+        newsContent += '</li>';
+        if (i == allPosts.length - 1) {
+          newsContent += '</ul>';
+          $('.ui-content').html(newsContent);
+        }
+      }
+    });
+  }
 }
 
 //--- Hanchiang Calendar ---
@@ -238,18 +206,6 @@ function getTimetable() {
       hideLoader();
     });
 }
-
-//--- pinchzoom ---
-// function initPinchZoom() {
-//   var myElement = document.getElementsByTagName('img');
-//   var pz = [];
-
-//   for (var i = 0; i < myElement.length; i++) {
-//     pz.push(new PinchZoom(myElement[i]));
-//     console.log(myElement[i]);
-//   }
-//   console.log('num el: ' + pz.length);
-// }
 
 //---- zoomIn image ------
 function zoomIn() {

@@ -99,6 +99,9 @@ function getThumbnail2Text(allPosts) {
         post.featured_media,
       type: 'GET',
       success: function(res) {
+        console.log(
+          'hoho call: ' + res.media_details.sizes.thumbnail.source_url
+        );
         newsContent += post.title.rendered;
         newsContent += post.excerpt.rendered;
         newsContent += '<img src= "';
@@ -108,32 +111,6 @@ function getThumbnail2Text(allPosts) {
       }
     });
   });
-}
-
-function getThumbnail2Textr(allPosts) {
-  var newsContent = '<ul data-role="listview" data-inset="true">';
-
-  for (var i = 0; i < allPosts.length; i++) {
-    $.ajax({
-      url:
-        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
-        allPosts[i].featured_media,
-      type: 'GET',
-      success: function(res) {
-        newsContent += '<li><a href="#">';
-        newsContent += '<img src="';
-        newsContent += res.media_details.sizes.thumbnail.source_url;
-        newsContent += '">';
-        newsContent += '<h2>' + allPosts[i].title.rendered + '</h2>';
-        newsContent += '<p>' + allPosts[i].excerpt.rendered + '</p>';
-        newsContent += '</li>';
-        if (i == allPosts.length - 1) {
-          newsContent += '</ul>';
-          $('.ui-content').html(newsContent);
-        }
-      }
-    });
-  }
 }
 
 //--- Hanchiang Calendar ---
@@ -206,6 +183,18 @@ function getTimetable() {
       hideLoader();
     });
 }
+
+//--- pinchzoom ---
+// function initPinchZoom() {
+//   var myElement = document.getElementsByTagName('img');
+//   var pz = [];
+
+//   for (var i = 0; i < myElement.length; i++) {
+//     pz.push(new PinchZoom(myElement[i]));
+//     console.log(myElement[i]);
+//   }
+//   console.log('num el: ' + pz.length);
+// }
 
 //---- zoomIn image ------
 function zoomIn() {
