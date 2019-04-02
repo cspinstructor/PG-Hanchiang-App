@@ -27,8 +27,9 @@ function initApp() {
 
 function loadNewsContent() {
   // $('.ui-content').load('news.html');
-
-  getNews2();
+  //console.log(getThumbnail(6417));
+  //getThumbnail(6417);
+  getNews3();
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
   $('a').removeClass('ui-btn-active');
@@ -81,21 +82,24 @@ function getNews() {
     .param('_embed')
     .perPage(1)
     .then(function(posts) {
-      posts.forEach(function(post) {
-        //imgUrl = getThumbnail(post.featured_media);
-        //console.log(post);
-        console.log('ok1');
-      });
-    })
-    .then(function(posts) {
       // posts.forEach(function(post) {
-      //   newsContent += post.title.rendered;
-      //   newsContent += post.excerpt.rendered;
-      //   newsContent += '<img src= "';
-      //   newsContent += imgUrl;
-      //   newsContent += '">';
+      //   //imgUrl = getThumbnail(post.featured_media);
+      //   //console.log(post);
+
+      //   return wp.media().id(post.featured_media);
       // });
-      console.log('ok2');
+      newsContent += posts[0].title.rendered;
+      newsContent += posts[0].excerpt.rendered;
+      newsContent += '<img src= "';
+      return wp.media().id(posts[0].featured_media);
+    })
+    .then(function(res) {
+      // posts.forEach(function(post) {
+
+      newsContent += res.media_details.sizes.thumbnail.source_url;
+      newsContent += '">';
+      //});
+      //console.log(res.media_details.sizes.thumbnail.source_url);
       $('.ui-content').html(newsContent);
       hideLoader();
     });
@@ -105,7 +109,6 @@ function getNews() {
 function getNews2() {
   showLoader();
   var newsContent = '';
-  //const apiRoot = 'https://hjuapp.site/wp-json';
   const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
   var imgUrl;
 
@@ -113,27 +116,83 @@ function getNews2() {
   wp.media()
     .id(6417)
     .then(function(res) {
-      console.log(res);
+      console.log(res.media_details.sizes.thumbnail.source_url);
       hideLoader();
     });
   $('#top-title').html('Latest News');
+}
+
+function getNews3() {
+  showLoader();
+  var newsContent = '';
+  //const apiRoot = 'https://hjuapp.site/wp-json';
+  const apiRoot = 'http://www.hanchiangnews.com/en/wp-json';
+  var imgUrl;
+  var allPosts = [];
+
+  var wp = new WPAPI({ endpoint: apiRoot });
+  wp.posts()
+    .param('_embed')
+    .perPage(5)
+    .then(function(posts) {
+      posts.forEach(function(post) {
+        allPosts.push(post);
+      });
+      getThumbnail2(allPosts);
+      hideLoader();
+    });
+
+  $('#top-title').html('Latest News');
+}
+
+function getThumbnail2(allPosts) {
+  var newsContent = '';
+  allPosts.forEach(function(post) {
+    $.ajax({
+      url: `http://www.hanchiangnews.com/en/wp-json/wp/v2/media/${
+        post.featured_media
+      }`,
+      type: 'GET',
+      success: function(res) {
+        console.log(
+          'hoho call: ' + res.media_details.sizes.thumbnail.source_url
+        );
+        newsContent += post.title.rendered;
+        newsContent += post.excerpt.rendered;
+        newsContent += '<img src= "';
+        newsContent += res.media_details.sizes.thumbnail.source_url;
+        newsContent += '">';
+        $('.ui-content').html(newsContent);
+      }
+    });
+  });
 }
 
 function getThumbnail(featured_media) {
   const mediaUrl = `http://www.hanchiangnews.com/en/wp-json/wp/v2/media/${featured_media}`;
   //console.log('mediaUrl: ' + mediaUrl);
   //return 'http://www.hanchiangnews.com/en/wp-content/uploads/2019/03/Sequence-01_1-150x150.jpg';
-  $.ajax(mediaUrl)
-    .done(function(jsonresponse) {
-      console.log(
-        '1.jsonresponse.media_details.sizes.thumbnail.source_url: ' +
-          jsonresponse.media_details.sizes.thumbnail.source_url
-      );
-      return jsonresponse.media_details.sizes.thumbnail.source_url;
-    })
-    .fail(function() {
-      console.log('ajax getThumbnail error');
-    });
+  // $.ajax(mediaUrl)
+  //   .done(function(jsonresponse) {
+  //     // console.log(
+  //     //   '1.jsonresponse.media_details.sizes.thumbnail.source_url: ' +
+  //     //     jsonresponse.media_details.sizes.thumbnail.source_url
+  //     // );
+  //     return jsonresponse.media_details.sizes.thumbnail.source_url;
+  //   })
+  //   .fail(function() {
+  //     console.log('ajax getThumbnail error');
+  //   });
+
+  $.ajax({
+    url: mediaUrl,
+    type: 'GET',
+
+    success: function(res) {
+      //console.log('hoho call: ' + res.media_details.sizes.thumbnail.source_url);
+      return res.media_details.sizes.thumbnail.source_url;
+    }
+  });
 }
 
 //--- Hanchiang Calendar ---
