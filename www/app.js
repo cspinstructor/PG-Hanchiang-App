@@ -149,9 +149,9 @@ function getThumbnail2(allPosts) {
   var newsContent = '';
   allPosts.forEach(function(post) {
     $.ajax({
-      url: `http://www.hanchiangnews.com/en/wp-json/wp/v2/media/${
-        post.featured_media
-      }`,
+      url:
+        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
+        post.featured_media,
       type: 'GET',
       success: function(res) {
         console.log(
