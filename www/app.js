@@ -23,6 +23,7 @@ function initApp() {
     .fail(function() {
       console.log('ajax home content error');
     });
+  $('#headerBackButton').hide();
 }
 
 function loadNewsContent() {
@@ -30,6 +31,8 @@ function loadNewsContent() {
   window.scrollTo(0, 0);
   $('[data-role="footer"]').css({ display: 'none' });
   $('a').removeClass('ui-btn-active');
+  $('#headerBackButton').hide();
+  $('#openpanel').show();
 }
 
 function loadHomeContent() {
@@ -139,7 +142,24 @@ function getThumbnail2Text(allPosts) {
 function getNewsContent(item) {
   console.log(newsCollection[item]);
   $('.ui-content').html(topImageCollection[item] + newsCollection[item]);
+  $('#headerBackButton').show();
+  $('#openpanel').hide();
 }
+
+function getNewsContent2(item) {
+  console.log(newsCollection[item]);
+  var backButton = '<div data-role="header">';
+  backButton += '<a data-icon="bars"';
+  backButton +=
+    'class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext"';
+  backButton += 'data-rel="back"></a>';
+  backButton += '</div>';
+  $('.ui-content').html(
+    backButton + topImageCollection[item] + newsCollection[item]
+  );
+}
+
+function reloadNewsPage() {}
 
 function getThumbnail2Text2(allPosts) {
   var newsContent = '<ul data-role="listview" data-inset="true">';
