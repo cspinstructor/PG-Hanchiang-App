@@ -220,8 +220,8 @@ function getCalendars() {
 
 function showLoader() {
   $.mobile.loading('show', {
-    text: 'loading',
-    textVisible: true,
+    text: '',
+    textVisible: false,
     theme: 'z',
     html: ''
   });
