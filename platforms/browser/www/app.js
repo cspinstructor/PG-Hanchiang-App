@@ -93,7 +93,7 @@ function getThumbnail2Text(allPosts) {
   var j = 0;
   const length = allPosts.length;
   console.log('length...' + allPosts.length);
-  var newsContent = '<ul data-role="listview" data-inset="true">';
+  var newsContent = '<ul data-role="listview" data-inset="false">';
   allPosts.forEach(function(post) {
     $.ajax({
       url:
