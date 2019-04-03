@@ -78,36 +78,15 @@ function getNews() {
   var wp = new WPAPI({ endpoint: apiRoot });
   wp.posts()
     .param('_embed')
-    .perPage(5)
+    .perPage(10)
     .then(function(posts) {
       posts.forEach(function(post) {
         allPosts.push(post);
       });
       getThumbnail2Text(allPosts);
-      hideLoader();
     });
 
   $('#top-title').html('Latest News');
-}
-
-function getThumbnail2Text2(allPosts) {
-  var newsContent = '';
-  allPosts.forEach(function(post) {
-    $.ajax({
-      url:
-        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
-        post.featured_media,
-      type: 'GET',
-      success: function(res) {
-        newsContent += post.title.rendered;
-        newsContent += post.excerpt.rendered;
-        newsContent += '<img src= "';
-        newsContent += res.media_details.sizes.thumbnail.source_url;
-        newsContent += '">';
-        $('.ui-content').html(newsContent);
-      }
-    });
-  });
 }
 
 function getThumbnail2Text(allPosts) {
@@ -139,6 +118,7 @@ function getThumbnail2Text(allPosts) {
           newsContent += '</ul>';
           $('.ui-content').html(newsContent);
           $('[data-role=listview]').listview();
+          hideLoader();
         }
       }
     });
