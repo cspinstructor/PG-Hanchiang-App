@@ -93,9 +93,11 @@ function getNews() {
   $('#top-title').html('Latest News');
 }
 
-var newsCollection = [];
-var topImageCollection = [];
-var newsListPage;
+var newsListPage; // cache of the news page
+var newsTopImageCollection = [];
+var newsTitleCollection = [];
+var newsDateCollection = [];
+var newsContentCollection = [];
 
 function getThumbnail2Text(allPosts) {
   var j = 0;
@@ -110,11 +112,15 @@ function getThumbnail2Text(allPosts) {
       type: 'GET',
       success: function(res) {
         j++;
-        newsCollection[j] = post.content.rendered;
-        topImageCollection[j] =
+
+        newsTopImageCollection[j] =
           '<img src= "' +
           res.media_details.sizes.medium_large.source_url +
           '">';
+        newsTitleCollection[j] = '<h3>' + post.title.rendered + '</h3>';
+        newsDateCollection[j] = '<h4>' + extractDate(post) + '</h4>';
+        newsContentCollection[j] = post.content.rendered;
+
         newsContent += '<li>';
         newsContent += '<a href="#" onclick="getNewsContent(';
         newsContent += j;
@@ -123,8 +129,8 @@ function getThumbnail2Text(allPosts) {
         newsContent += res.media_details.sizes.thumbnail.source_url;
         newsContent += '">';
         //newsContent += '<h2>' + post.title.rendered + '</h2>';
-        newsContent += '<p>' + post.title.rendered + '</p>';
-        newsContent += '<p>' + post.date + '</p>';
+        newsContent += '<p><b>' + post.title.rendered + '</b></p>';
+        newsContent += '<p>' + extractDate(post) + '</p>';
         //newsContent += '<p>' + post.excerpt.rendered + '</p>';
         //newsContent += '<p>' + post.excerpt.rendered + '</p>';
         newsContent += '</a>';
@@ -143,10 +149,25 @@ function getThumbnail2Text(allPosts) {
   });
 }
 
+function extractDate(post) {
+  var today = new Date(post.date).toLocaleDateString('en-US', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+  //const date = new Date(post.date);
+  return today;
+}
+
 //-- called from embedded markup inserted in getThumbnail2Text() --
 function getNewsContent(item) {
-  console.log(newsCollection[item]);
-  $('.ui-content').html(topImageCollection[item] + newsCollection[item]);
+  //console.log(newsContentCollection[item]);
+  $('.ui-content').html(
+    newsTopImageCollection[item] +
+      newsTitleCollection[item] +
+      newsDateCollection[item] +
+      newsContentCollection[item]
+  );
   $('#headerBackButton').show();
   $('#openpanel').hide();
 }
