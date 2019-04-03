@@ -90,7 +90,7 @@ function getNews() {
   $('#top-title').html('Latest News');
 }
 
-function getThumbnail2Text(allPosts) {
+function getThumbnail2Text2(allPosts) {
   var newsContent = '';
   allPosts.forEach(function(post) {
     $.ajax({
@@ -110,7 +110,42 @@ function getThumbnail2Text(allPosts) {
   });
 }
 
-function getThumbnail2Textr(allPosts) {
+function getThumbnail2Text(allPosts) {
+  var j = 0;
+  const length = allPosts.length;
+  console.log('length...' + allPosts.length);
+  var newsContent = '<ul data-role="listview" data-inset="true">';
+  allPosts.forEach(function(post) {
+    $.ajax({
+      url:
+        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
+        post.featured_media,
+      type: 'GET',
+      success: function(res) {
+        j++;
+        newsContent += '<li>';
+        newsContent += '<a href="#">';
+        newsContent += '<img src= "';
+        newsContent += res.media_details.sizes.thumbnail.source_url;
+        newsContent += '">';
+        newsContent += '<h2>' + post.title.rendered + '</h2>';
+        newsContent += '<p>' + post.excerpt.rendered + '</p>';
+        newsContent += '</a>';
+        newsContent += '</li>';
+
+        console.log('j...' + j);
+        if (j == length) {
+          console.log('..yay.tt..');
+          newsContent += '</ul>';
+          $('.ui-content').html(newsContent);
+          $('[data-role=listview]').listview();
+        }
+      }
+    });
+  });
+}
+
+function getThumbnail2Text2(allPosts) {
   var newsContent = '<ul data-role="listview" data-inset="true">';
 
   for (var i = 0; i < allPosts.length; i++) {
