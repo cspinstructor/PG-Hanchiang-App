@@ -78,9 +78,10 @@ function getNews() {
   var wp = new WPAPI({ endpoint: apiRoot });
   wp.posts()
     .param('_embed')
-    .perPage(10)
+    .perPage(6)
     .then(function(posts) {
       posts.forEach(function(post) {
+        console.log(post.link);
         allPosts.push(post);
       });
       getThumbnail2Text(allPosts);
@@ -89,10 +90,13 @@ function getNews() {
   $('#top-title').html('Latest News');
 }
 
+var newsCollection = [];
+var topImageCollection = [];
+
 function getThumbnail2Text(allPosts) {
   var j = 0;
   const length = allPosts.length;
-  console.log('length...' + allPosts.length);
+
   var newsContent = '<ul data-role="listview" data-inset="false">';
   allPosts.forEach(function(post) {
     $.ajax({
@@ -102,8 +106,15 @@ function getThumbnail2Text(allPosts) {
       type: 'GET',
       success: function(res) {
         j++;
+        newsCollection[j] = post.content.rendered;
+        topImageCollection[j] =
+          '<img src= "' +
+          res.media_details.sizes.medium_large.source_url +
+          '">';
         newsContent += '<li>';
-        newsContent += '<a href="#">';
+        newsContent += '<a href="#" onclick="getNewsContent(';
+        newsContent += j;
+        newsContent += ')">';
         newsContent += '<img src= "';
         newsContent += res.media_details.sizes.thumbnail.source_url;
         newsContent += '">';
@@ -112,9 +123,8 @@ function getThumbnail2Text(allPosts) {
         newsContent += '</a>';
         newsContent += '</li>';
 
-        console.log('j...' + j);
+        //console.log(newsContent);
         if (j == length) {
-          console.log('..yay.tt..');
           newsContent += '</ul>';
           $('.ui-content').html(newsContent);
           $('[data-role=listview]').listview();
@@ -123,6 +133,12 @@ function getThumbnail2Text(allPosts) {
       }
     });
   });
+}
+
+//-- called from embedded markup inserted in getThumbnail2Text() --
+function getNewsContent(item) {
+  console.log(newsCollection[item]);
+  $('.ui-content').html(topImageCollection[item] + newsCollection[item]);
 }
 
 function getThumbnail2Text2(allPosts) {
