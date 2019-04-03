@@ -95,6 +95,7 @@ function getNews() {
 
 var newsCollection = [];
 var topImageCollection = [];
+var newsListPage;
 
 function getThumbnail2Text(allPosts) {
   var j = 0;
@@ -132,6 +133,7 @@ function getThumbnail2Text(allPosts) {
           $('.ui-content').html(newsContent);
           $('[data-role=listview]').listview();
           hideLoader();
+          newsListPage = newsContent;
         }
       }
     });
@@ -159,7 +161,12 @@ function getNewsContent2(item) {
   );
 }
 
-function reloadNewsPage() {}
+function reloadNewsPage() {
+  $('.ui-content').html(newsListPage);
+  $('[data-role=listview]').listview();
+  $('#headerBackButton').hide();
+  $('#openpanel').show();
+}
 
 function getThumbnail2Text2(allPosts) {
   var newsContent = '<ul data-role="listview" data-inset="true">';
