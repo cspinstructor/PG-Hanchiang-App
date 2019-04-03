@@ -26,15 +26,6 @@ function initApp() {
   $('#headerBackButton').hide();
 }
 
-function loadNewsContent() {
-  getNews();
-  window.scrollTo(0, 0);
-  $('[data-role="footer"]').css({ display: 'none' });
-  $('a').removeClass('ui-btn-active');
-  $('#headerBackButton').hide();
-  $('#openpanel').show();
-}
-
 function loadHomeContent() {
   $('.ui-content').load('home.html');
 
@@ -70,6 +61,15 @@ function handleOptions() {
 }
 
 //--- Hanchiang News ---
+function loadNewsContent() {
+  getNews();
+  window.scrollTo(0, 0);
+  $('[data-role="footer"]').css({ display: 'none' });
+  $('a').removeClass('ui-btn-active');
+  $('#headerBackButton').hide();
+  $('#openpanel').show();
+}
+
 function getNews() {
   showLoader();
   var newsContent = '';
@@ -122,8 +122,11 @@ function getThumbnail2Text(allPosts) {
         newsContent += '<img src= "';
         newsContent += res.media_details.sizes.thumbnail.source_url;
         newsContent += '">';
-        newsContent += '<h2>' + post.title.rendered + '</h2>';
-        newsContent += '<p>' + post.excerpt.rendered + '</p>';
+        //newsContent += '<h2>' + post.title.rendered + '</h2>';
+        newsContent += '<p>' + post.title.rendered + '</p>';
+        newsContent += '<p>' + post.date + '</p>';
+        //newsContent += '<p>' + post.excerpt.rendered + '</p>';
+        //newsContent += '<p>' + post.excerpt.rendered + '</p>';
         newsContent += '</a>';
         newsContent += '</li>';
 
@@ -148,50 +151,11 @@ function getNewsContent(item) {
   $('#openpanel').hide();
 }
 
-function getNewsContent2(item) {
-  console.log(newsCollection[item]);
-  var backButton = '<div data-role="header">';
-  backButton += '<a data-icon="bars"';
-  backButton +=
-    'class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext"';
-  backButton += 'data-rel="back"></a>';
-  backButton += '</div>';
-  $('.ui-content').html(
-    backButton + topImageCollection[item] + newsCollection[item]
-  );
-}
-
 function reloadNewsPage() {
   $('.ui-content').html(newsListPage);
   $('[data-role=listview]').listview();
   $('#headerBackButton').hide();
   $('#openpanel').show();
-}
-
-function getThumbnail2Text2(allPosts) {
-  var newsContent = '<ul data-role="listview" data-inset="true">';
-
-  for (var i = 0; i < allPosts.length; i++) {
-    $.ajax({
-      url:
-        'http://www.hanchiangnews.com/en/wp-json/wp/v2/media/' +
-        allPosts[i].featured_media,
-      type: 'GET',
-      success: function(res) {
-        newsContent += '<li><a href="#">';
-        newsContent += '<img src="';
-        newsContent += res.media_details.sizes.thumbnail.source_url;
-        newsContent += '">';
-        newsContent += '<h2>' + allPosts[i].title.rendered + '</h2>';
-        newsContent += '<p>' + allPosts[i].excerpt.rendered + '</p>';
-        newsContent += '</li>';
-        if (i == allPosts.length - 1) {
-          newsContent += '</ul>';
-          $('.ui-content').html(newsContent);
-        }
-      }
-    });
-  }
 }
 
 //--- Hanchiang Calendar ---
