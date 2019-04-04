@@ -45,6 +45,15 @@ function loadTimetableContent() {
   $('a').removeClass('ui-btn-active');
 }
 
+function loadClassrmBkContent() {
+  showLoader();
+  getClassroomBk();
+  window.scrollTo(0, 0);
+  $('#top-title').html('Classroom Bookings');
+  $('[data-role="footer"]').css({ display: 'block' });
+  $('a').removeClass('ui-btn-active');
+}
+
 function loadCalendarContent() {
   //$('.ui-content').load('calendar.html');
   // $('#navbar-home').removeClass('ui-btn-active');
@@ -191,13 +200,13 @@ function getCalendars() {
   wp.posts()
     .categories(6) //6 = calendars
     .then(function(posts) {
-      calendarContent += '<div data-role="collapsibleset">';
+      calendarContent += '<div data-role="collapsibleset" data-ajax="false">';
       posts.forEach(function(post) {
         // console.log(post.title.rendered);
         // console.log(post.content.rendered);
 
         calendarContent +=
-          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" >';
         calendarContent += '<h4>';
         calendarContent += post.title.rendered;
         calendarContent += '</h4>';
@@ -242,6 +251,43 @@ function getTimetable() {
 
   wp.posts()
     .categories(8) // 7 = home 8 = timetables
+    .orderby('slug')
+    .order('asc')
+    .then(function(posts) {
+      content += '<div data-role="collapsibleset" data-ajax="false">';
+      posts.forEach(function(post) {
+        content +=
+          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+        content += '<h4>';
+        content += post.title.rendered;
+        content += '</h4>';
+        content += '<p>';
+        content += post.content.rendered;
+        content += '</p>';
+        content += '</div>';
+      });
+      content += '</div>';
+
+      $('.ui-content').html(content);
+
+      $('[data-role=collapsible]').collapsible();
+      $('[data-role=collapsibleset]').collapsibleset();
+      makeEmDraggable();
+      hideLoader();
+    });
+}
+
+// --- classroom bookings ---
+function getClassroomBk() {
+  showLoader();
+
+  var content = '';
+  const apiRoot = 'https://hjuapp.site/wp-json';
+
+  var wp = new WPAPI({ endpoint: apiRoot });
+
+  wp.posts()
+    .categories(9) // 7 = home, 8 = timetables, 9 = classroom booking
     .orderby('slug')
     .order('asc')
     .then(function(posts) {
