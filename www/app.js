@@ -234,6 +234,7 @@ function hideLoader() {
 //--- Time tables  ---
 function getTimetable() {
   showLoader();
+
   var content = '';
   const apiRoot = 'https://hjuapp.site/wp-json';
 
@@ -244,7 +245,7 @@ function getTimetable() {
     .orderby('slug')
     .order('asc')
     .then(function(posts) {
-      content += '<div data-role="collapsibleset">';
+      content += '<div data-role="collapsibleset" data-ajax="false">';
       posts.forEach(function(post) {
         content +=
           '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
