@@ -49,7 +49,7 @@ function loadClassrmBkContent() {
   showLoader();
   getClassroomBk();
   window.scrollTo(0, 0);
-  $('#top-title').html('Classroom Bookings');
+  $('#top-title').html('Class Bookings');
   $('[data-role="footer"]').css({ display: 'block' });
   $('a').removeClass('ui-btn-active');
 }
