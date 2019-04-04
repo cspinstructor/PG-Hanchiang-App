@@ -231,7 +231,7 @@ function hideLoader() {
   $.mobile.loading('hide');
 }
 
-//--- Hanchiang Home Page ---
+//--- Time tables  ---
 function getTimetable() {
   showLoader();
   var content = '';
@@ -240,12 +240,29 @@ function getTimetable() {
   var wp = new WPAPI({ endpoint: apiRoot });
 
   wp.posts()
-    .categories(7) // 7 = home 8 = timetables
+    .categories(8) // 7 = home 8 = timetables
+    .orderby('slug')
+    .order('asc')
     .then(function(posts) {
-      console.log(posts[0].content.rendered);
-      content = posts[0].content.rendered;
+      content += '<div data-role="collapsibleset">';
+      posts.forEach(function(post) {
+        content +=
+          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+        content += '<h4>';
+        content += post.title.rendered;
+        content += '</h4>';
+        content += '<p>';
+        content += post.content.rendered;
+        content += '</p>';
+        content += '</div>';
+      });
+      content += '</div>';
 
       $('.ui-content').html(content);
+
+      $('[data-role=collapsible]').collapsible();
+      $('[data-role=collapsibleset]').collapsibleset();
+      makeEmDraggable();
       hideLoader();
     });
 }
