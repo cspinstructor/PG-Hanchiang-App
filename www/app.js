@@ -16,19 +16,24 @@ function initApp() {
       console.log('ajax panel error');
     });
 
+  getHomeContent();
+  $('[data-role="footer"]').css({ display: 'none' });
+  $('#headerBackButton').hide();
+}
+
+function getHomeContent() {
   $.ajax('home.html')
     .done(function(home) {
-      $('#homecontent').html(home);
+      $('.ui-content').html(home);
+      $('[data-role=listview]').listview();
     })
     .fail(function() {
       console.log('ajax home content error');
     });
-  $('#headerBackButton').hide();
 }
 
 function loadHomeContent() {
-  $('.ui-content').load('home.html');
-
+  getHomeContent();
   window.scrollTo(0, 0);
   $('#top-title').html('Han Chiang App');
   $('[data-role="footer"]').css({ display: 'none' });
