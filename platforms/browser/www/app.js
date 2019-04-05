@@ -98,7 +98,7 @@ function getNews() {
     .perPage(6)
     .then(function(posts) {
       posts.forEach(function(post) {
-        console.log(post.link);
+        //console.log(post.link);
         allPosts.push(post);
       });
       getThumbnail2Text(allPosts);
@@ -118,7 +118,7 @@ function getThumbnail2Text(allPosts) {
   const length = allPosts.length;
 
   //var newsContent = '<ul data-role="listview" data-inset="false">';
-  var newsContent = '<ul data-role="listview" data-inset="true">';
+  var newsContent = '';
   allPosts.forEach(function(post) {
     $.ajax({
       url:
@@ -136,13 +136,14 @@ function getThumbnail2Text(allPosts) {
         newsDateCollection[j] = '<h4>' + extractDate(post) + '</h4>';
         newsContentCollection[j] = post.content.rendered;
 
+        newsContent += '<ul data-role="listview" data-inset="true">';
         newsContent += '<li>';
         newsContent += '<a href="#" onclick="getNewsContent(';
         newsContent += j;
         newsContent += ')">';
         newsContent += '<img src= "';
         newsContent += res.media_details.sizes.thumbnail.source_url;
-        newsContent += '">';
+        newsContent += '" class="ui-li-thumb">';
         //newsContent += '<h2>' + post.title.rendered + '</h2>';
         newsContent += '<p><b>' + post.title.rendered + '</b></p>';
         newsContent += '<p>' + extractDate(post) + '</p>';
@@ -150,10 +151,10 @@ function getThumbnail2Text(allPosts) {
         //newsContent += '<p>' + post.excerpt.rendered + '</p>';
         newsContent += '</a>';
         newsContent += '</li>';
-
+        newsContent += '</ul>';
         //console.log(newsContent);
         if (j == length) {
-          newsContent += '</ul>';
+          //newsContent += '</ul>';
           $('.ui-content').html(newsContent);
           $('[data-role=listview]').listview();
           hideLoader();

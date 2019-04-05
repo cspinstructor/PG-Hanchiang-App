@@ -117,7 +117,8 @@ function getThumbnail2Text(allPosts) {
   var j = 0;
   const length = allPosts.length;
 
-  var newsContent = '<ul data-role="listview" data-inset="false">';
+  //var newsContent = '<ul data-role="listview" data-inset="false">';
+  var newsContent = '<ul data-role="listview" data-inset="true">';
   allPosts.forEach(function(post) {
     $.ajax({
       url:
@@ -141,7 +142,7 @@ function getThumbnail2Text(allPosts) {
         newsContent += ')">';
         newsContent += '<img src= "';
         newsContent += res.media_details.sizes.thumbnail.source_url;
-        newsContent += '">';
+        newsContent += '" class="ui-li-thumb">';
         //newsContent += '<h2>' + post.title.rendered + '</h2>';
         newsContent += '<p><b>' + post.title.rendered + '</b></p>';
         newsContent += '<p>' + extractDate(post) + '</p>';
@@ -207,13 +208,14 @@ function getCalendars() {
     .orderby('slug')
     .order('asc')
     .then(function(posts) {
-      calendarContent += '<div data-role="collapsibleset" data-ajax="false">';
+      calendarContent +=
+        '<div data-role="collapsibleset" data-inset="true" data-ajax="false">';
       posts.forEach(function(post) {
         // console.log(post.title.rendered);
         // console.log(post.content.rendered);
 
         calendarContent +=
-          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" >';
+          '<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u" >';
         calendarContent += '<h4>';
         calendarContent += post.title.rendered;
         calendarContent += '</h4>';
@@ -261,10 +263,11 @@ function getTimetable() {
     .orderby('slug')
     .order('asc')
     .then(function(posts) {
-      content += '<div data-role="collapsibleset" data-ajax="false">';
+      content +=
+        '<div data-role="collapsibleset" data-inset="true" data-ajax="false">';
       posts.forEach(function(post) {
         content +=
-          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+          '<div data-role="collapsible"   data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
         content += '<h4>';
         content += post.title.rendered;
         content += '</h4>';
@@ -298,10 +301,11 @@ function getClassroomBk() {
     .orderby('slug')
     .order('asc')
     .then(function(posts) {
-      content += '<div data-role="collapsibleset" data-ajax="false">';
+      content +=
+        '<div data-role="collapsibleset" data-inset="true" data-ajax="false">';
       posts.forEach(function(post) {
         content +=
-          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+          '<div data-role="collapsible" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
         content += '<h4>';
         content += post.title.rendered;
         content += '</h4>';
@@ -311,7 +315,6 @@ function getClassroomBk() {
         content += '</div>';
       });
       content += '</div>';
-
       $('.ui-content').html(content);
 
       $('[data-role=collapsible]').collapsible();
