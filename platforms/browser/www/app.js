@@ -204,6 +204,8 @@ function getCalendars() {
 
   wp.posts()
     .categories(6) //6 = calendars
+    .orderby('slug')
+    .order('asc')
     .then(function(posts) {
       calendarContent += '<div data-role="collapsibleset" data-ajax="false">';
       posts.forEach(function(post) {
@@ -324,7 +326,7 @@ function zoomIn() {
   var imagesize = $('img').width();
 
   $('#navbar-zoom-in').on('click', function() {
-    imagesize = imagesize + 50;
+    imagesize = imagesize + 100;
     $('img').width(imagesize);
   });
 }
@@ -334,7 +336,7 @@ function zoomOut() {
   var imagesize = $('img').width();
 
   $('#navbar-zoom-out').on('click', function() {
-    imagesize = imagesize - 50;
+    imagesize = imagesize - 100;
     $('img').width(imagesize);
   });
 }
