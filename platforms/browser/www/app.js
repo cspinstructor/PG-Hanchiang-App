@@ -326,7 +326,7 @@ function zoomIn() {
   var imagesize = $('img').width();
 
   $('#navbar-zoom-in').on('click', function() {
-    imagesize = imagesize + 100;
+    imagesize = imagesize + 200;
     $('img').width(imagesize);
   });
 }
@@ -336,7 +336,7 @@ function zoomOut() {
   var imagesize = $('img').width();
 
   $('#navbar-zoom-out').on('click', function() {
-    imagesize = imagesize - 100;
+    imagesize = imagesize - 200;
     $('img').width(imagesize);
   });
 }
