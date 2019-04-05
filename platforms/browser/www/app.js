@@ -264,7 +264,7 @@ function getTimetable() {
       content += '<div data-role="collapsibleset" data-ajax="false">';
       posts.forEach(function(post) {
         content +=
-          '<div data-role="collapsible" data-inset="false" data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
+          '<div data-role="collapsible"  data-collapsed-icon="carat-d" data-expanded-icon="carat-u">';
         content += '<h4>';
         content += post.title.rendered;
         content += '</h4>';
